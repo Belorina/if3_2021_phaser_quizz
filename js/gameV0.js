@@ -67,8 +67,6 @@ function preload() {
     this.load.image('menuBackground', './assets/sprites/windows3.png');
     this.load.image('menu', './assets/sprites/menu.png');
     this.load.image('restart', './assets/sprites/restart.png')
-
-
 }
 
 function create() {
@@ -127,14 +125,11 @@ function create() {
         starImage[i].alpha = 0.5;
         starImage[i].setVisible(false);
     }
-
     goodAnswerSound = this.sound.add('goodSound');
     wrongAnswerSound = this.sound.add('wrongSound');
 }
 
-function update() {
-
-}
+function update() {}
 
 function checkAnswer(answerIndex) {
     if (answerIndex == quizz.questions[currentQuestionIndex].goodAnswerIndex) {
@@ -168,11 +163,9 @@ function displayNextQuestion() {
         playButtonImage.setVisible(false);
         for (let i = 0; i < 3; i++) answerImage[i].setInteractive();
     }
-
 }
 
 function displayGameScreen() {
-
     welcomeImage.setVisible(false);
     quizText.setVisible(false);
     welcomeText.setVisible(false);
@@ -218,7 +211,6 @@ function restartGame() {
     restartImage.setVisible(false);
     displayGameScreen();
     score = 0;
-    
 }
 
 /*
