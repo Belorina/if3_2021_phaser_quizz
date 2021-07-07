@@ -116,7 +116,7 @@ function create() {
         answerText[i].setVisible(false);
     }
 
-    playButtonImage = this.add.image(300, 550, 'play').setInteractive();
+    playButtonImage = this.add.image(300, 530, 'play').setInteractive();
     playButtonImage.on('pointerdown', displayNextQuestion);
     playButtonImage.setScale(0.3);
     playButtonImage.setVisible(false); // playButtonImage.alpha = 0;
@@ -163,6 +163,7 @@ function displayNextQuestion() {
         questionText.text = quizz.questions[currentQuestionIndex].title;
         for (let i = 0; i < 3; i++) {
             answerText[i].text = quizz.questions[currentQuestionIndex].answers[i];
+            answerText[i].setColor("#000000");
         }
         playButtonImage.setVisible(false);
         for (let i = 0; i < 3; i++) answerImage[i].setInteractive();
@@ -186,6 +187,8 @@ function displayGameScreen() {
     }
     for (let i = 0; i < 10; i++) {
         starImage[i].setVisible(true);
+        starImage[i].alpha = 0.5;
+        starImage[i].tint = 0xffffff;
     }
 }
 
@@ -210,8 +213,17 @@ function displayGameOver() {
 }
 
 function restartGame() {
-
+    currentQuestionIndex = -1;
+    displayNextQuestion();
+    restartImage.setVisible(false);
+    displayGameScreen();
+    score = 0;
+    
 }
+
+
+    // star a nouveau vide 
+
 
 
 
