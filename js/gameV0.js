@@ -221,12 +221,6 @@ function restartGame() {
     
 }
 
-
-    // star a nouveau vide 
-
-
-
-
 /*
 
 - quizz
