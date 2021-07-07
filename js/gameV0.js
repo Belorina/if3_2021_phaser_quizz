@@ -26,7 +26,7 @@ let score = 0;
 let goodAnswerSound;
 let wrongAnswerSound;
 
-let welcomeImage, quizText, welcomeText, menuImage;
+let welcomeImage, quizText, welcomeText, menuImage, restartImage;
 
 let quizzString; // = '{ "questions": [ { "title": "Quel célèbre dictateur dirigea l’URSS du milieu des années 1920 à 1953 ?", "answers": ["Lenine", "Staline", "Molotov"], "goodAnswerIndex" : 1 }, {"title": "Ma deuxième question", "answers": ["Réponse 0", "Réponse 1", "Réponse 2"],"goodAnswerIndex" : 0}]}';
 let quizz; // = JSON.parse(quizzString);
@@ -66,6 +66,7 @@ function preload() {
 
     this.load.image('menuBackground', './assets/sprites/windows3.png');
     this.load.image('menu', './assets/sprites/menu.png');
+    this.load.image('restart', './assets/sprites/restart.png')
 
 
 }
@@ -76,7 +77,7 @@ function create() {
     backgroundImage.setOrigin(0, 0);
     backgroundImage.setScale(0.5);
 
-    // build home screen 
+    // build HOME SCREEN
     welcomeImage = this.add.image(300, 280, 'menuBackground');
     welcomeImage.setScale(0.8);
     quizText = this.add.text(270, 110, "QUIZZ", { fontFamily: 'Arial', fontSize: 20, color: ' #000000 ' });
@@ -84,12 +85,19 @@ function create() {
     menuImage = this.add.image(300, 340, 'menu').setInteractive();
     menuImage.setScale(0.5);
     menuImage.on('pointerdown', displayGameScreen);
-
+    // menuImage.on('pointerover', function(pointer){
+    //     showText = this.add.text(300, 340, "test", { fontFamily: 'Arial', fontSize: 20, color: ' #000000 ' });
+    // })
     welcomeImage.setVisible(true);
     quizText.setVisible(true);
     welcomeText.setVisible(true);
     menuImage.setVisible(true);
 
+    // GAME OVER SCREEN
+    restartImage = this.add.image(300, 340, 'restart').setInteractive();
+    restartImage.setScale(0.5);
+    restartImage.on('pointerdown', restartGame);
+    restartImage.setVisible(false);
 
     // quizz questions and answers
     questionImage = this.add.image(300, 100, 'labelquestion');
@@ -131,30 +139,34 @@ function update() {
 function checkAnswer(answerIndex) {
     if (answerIndex == quizz.questions[currentQuestionIndex].goodAnswerIndex) {
         goodAnswerSound.play();
-        alert("OK");
         starImage[currentQuestionIndex].alpha = 1;
         score++;
     }
     else {
         wrongAnswerSound.play();
-        alert("Pas OK");
         starImage[currentQuestionIndex].tint = 0xff0000;    // 0x a la place du # ! 
     }
     playButtonImage.setVisible(true);   // playButtonImage.alpha = 1;
-    for (let i = 0; i < 3; i++) answerImage[i].disableInteractive();
+    for (let i = 0; i < 3; i++) {
+        answerImage[i].disableInteractive();
+        if (i == quizz.questions[currentQuestionIndex].goodAnswerIndex) answerText[i].setColor('#00ff00');
+        else answerText[i].setColor('#ff0000');
+    }
 }
 
 function displayNextQuestion() {
     currentQuestionIndex++;
     if (currentQuestionIndex == 10) {
-        alert("Vous avez " + score + "/10");
+        displayGameOver();
     }
-    questionText.text = quizz.questions[currentQuestionIndex].title;
-    for (let i = 0; i < 3; i++) {
-        answerText[i].text = quizz.questions[currentQuestionIndex].answers[i];
+    else {
+        questionText.text = quizz.questions[currentQuestionIndex].title;
+        for (let i = 0; i < 3; i++) {
+            answerText[i].text = quizz.questions[currentQuestionIndex].answers[i];
+        }
+        playButtonImage.setVisible(false);
+        for (let i = 0; i < 3; i++) answerImage[i].setInteractive();
     }
-    playButtonImage.setVisible(false);
-    for (let i = 0; i < 3; i++) answerImage[i].setInteractive();
 
 }
 
@@ -175,7 +187,29 @@ function displayGameScreen() {
     for (let i = 0; i < 10; i++) {
         starImage[i].setVisible(true);
     }
+}
 
+function displayGameOver() {
+    welcomeImage.setVisible(true);
+    quizText.setVisible(true);
+    welcomeText.setVisible(true);
+    welcomeText.text = "Vous avez un score de " + score + "/10 \nPresser le bouton pour recommencer.";
+    restartImage.setVisible(true);
+
+    playButtonImage.setVisible(false);
+    questionImage.setVisible(false);
+    questionText.setVisible(false);
+
+    for (let i = 0; i < answerNumber; i++) {
+        answerImage[i].setVisible(false);
+        answerText[i].setVisible(false);
+    }
+    for (let i = 0; i < 10; i++) {
+        starImage[i].setVisible(false);
+    }
+}
+
+function restartGame() {
 
 }
 
