@@ -78,7 +78,7 @@ function create() {
     // build HOME SCREEN
     welcomeImage = this.add.image(300, 280, 'menuBackground');
     welcomeImage.setScale(0.8);
-    quizText = this.add.text(270, 110, "QUIZZ", { fontFamily: 'Arial', fontSize: 20, color: ' #000000 ' });
+    quizText = this.add.text(270, 112, "QUIZZ", { fontFamily: 'Arial', fontSize: 20, color: ' #000000 ' });
     welcomeText = this.add.text(110, 230, "Pousser sur le bouton pour commencer le quiz.", { fontFamily: 'Arial', fontSize: 18, color: ' #000000 ' });
     menuImage = this.add.image(300, 340, 'menu').setInteractive();
     menuImage.setScale(0.5);
