@@ -67,9 +67,13 @@ function preload() {
     this.load.image('menuBackground', './assets/sprites/windows3.png');
     this.load.image('menu', './assets/sprites/menu.png');
     this.load.image('restart', './assets/sprites/restart.png')
+
+
 }
 
 function create() {
+    loadFont("carterone", "./assets/Fonts/Carterone.ttf")
+
     quizz = this.cache.json.get('questions');
     backgroundImage = this.add.image(0, 0, 'background');
     backgroundImage.setOrigin(0, 0);
@@ -101,7 +105,7 @@ function create() {
     questionImage = this.add.image(300, 100, 'labelquestion');
     questionImage.setScale(0.5);
     questionImage.setVisible(false);
-    for (let i = 0; i < answerNumber; i++) {
+    for (let i = 0; i < quizz.questions[0].answers.length; i++) {
         answerImage[i] = this.add.image(300, 220 + i * 110, 'labelanswer').setInteractive();
         answerImage[i].on('pointerdown', () => { checkAnswer(i) });
         answerImage[i].setScale(1.0);
@@ -109,7 +113,7 @@ function create() {
     }
     questionText = this.add.text(150, 80, quizz.questions[0].title, { fontFamily: 'Arial', fontSize: 18, color: ' #ffffff ' });
     questionText.setVisible(false);
-    for (let i = 0; i < answerNumber; i++) {
+    for (let i = 0; i < quizz.questions[0].answers.length; i++) {
         answerText[i] = this.add.text(190, 210 + i * 110, quizz.questions[0].answers[i], { fontFamily: 'Arial', fontSize: 18, color: ' #000000' });
         answerText[i].setVisible(false);
     }
@@ -119,7 +123,7 @@ function create() {
     playButtonImage.setScale(0.3);
     playButtonImage.setVisible(false); // playButtonImage.alpha = 0;
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < quizz.questions.length; i++) {
         starImage[i] = this.add.image(30 + i * 60, 600, 'starOn');
         starImage[i].setScale(0.2);
         starImage[i].alpha = 0.5;
@@ -129,7 +133,7 @@ function create() {
     wrongAnswerSound = this.sound.add('wrongSound');
 }
 
-function update() {}
+function update() { }
 
 function checkAnswer(answerIndex) {
     if (answerIndex == quizz.questions[currentQuestionIndex].goodAnswerIndex) {
@@ -174,11 +178,11 @@ function displayGameScreen() {
     questionImage.setVisible(true);
     questionText.setVisible(true);
 
-    for (let i = 0; i < answerNumber; i++) {
+    for (let i = 0; i < quizz.questions[0].answers.length; i++) {
         answerImage[i].setVisible(true);
         answerText[i].setVisible(true);
     }
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < quizz.questions.length; i++) {
         starImage[i].setVisible(true);
         starImage[i].alpha = 0.5;
         starImage[i].tint = 0xffffff;
@@ -196,11 +200,11 @@ function displayGameOver() {
     questionImage.setVisible(false);
     questionText.setVisible(false);
 
-    for (let i = 0; i < answerNumber; i++) {
+    for (let i = 0; i < quizz.questions[0].answers.length; i++) {
         answerImage[i].setVisible(false);
         answerText[i].setVisible(false);
     }
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < quizz.questions.length; i++) {
         starImage[i].setVisible(false);
     }
 }
@@ -211,6 +215,13 @@ function restartGame() {
     restartImage.setVisible(false);
     displayGameScreen();
     score = 0;
+}
+
+function loadFont(name, url) {
+    var newFont = new FontFace(name, `url(${url})`);
+    newFont.load().then(function (loaded) { 
+        document.fonts.add(loaded); 
+    }
 }
 
 /*
