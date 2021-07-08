@@ -54,19 +54,19 @@ let quizz = { "questions": [
 
 function preload() {
     this.load.image('background', './assets/Sprites/background.png');
-    this.load.image('labelquestion', './assets/Sprites/label1.png');
-    this.load.image('labelanswer', './assets/Sprites/label2.png');
-    this.load.image('play', './assets/Sprites/play.png');
-    this.load.image('starOn', './assets/sprites/star.png');
+    this.load.image('labelquestion', './assets/Sprites/Label1.png');
+    this.load.image('labelanswer', './assets/Sprites/Label2.png');
+    this.load.image('play', './assets/Sprites/Play.png');
+    this.load.image('starOn', './assets/Sprites/Star.png');
 
-    this.load.json('questions', './assets/data/questions.json');
+    this.load.json('questions', './assets/data/Questions.json');
 
-    this.load.audio('goodSound', './assets/sound/good.wav')
-    this.load.audio('wrongSound', './assets/sound/wrong.wav')
+    this.load.audio('goodSound', './assets/Sound/good.wav')
+    this.load.audio('wrongSound', './assets/Sound/wrong.wav')
 
-    this.load.image('blackboard', './assets/sprites/blackboard.png');
-    this.load.image('menu', './assets/sprites/menu.png');
-    this.load.image('restart', './assets/sprites/restart.png')
+    this.load.image('blackboard', './assets/Sprites/blackboard.png');
+    this.load.image('menu', './assets/Sprites/Menu.png');
+    this.load.image('restart', './assets/Sprites/Restart.png')
 
     loadFont("FFFTusj","./assets/Fonts/FFF_Tusj.ttf");
     loadFont("ArapeyReg","./assets/Fonts/arapey-regular.ttf");
